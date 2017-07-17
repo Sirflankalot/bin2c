@@ -19,6 +19,13 @@ struct binary_file {
 };
 
 int usage() {
+	std::cerr << "bin2c.cpp [-h output_header.hpp] [-o output_source] [-l input_bytes_per_line] "
+	             "[-a array_name filename]... \n\n"
+	          << "-o  output file for the arrays\n"
+	          << "-h  if a header name is provided, extern declarations\n    for all arrays will "
+	             "be put in it\n"
+	          << "-l  amount of (source) bytes to put on one line (4 output bytes per input byte)\n"
+	          << "-a  add array\n";
 	return 1;
 }
 
@@ -114,6 +121,10 @@ int main(int argc, char** argv) {
 					break;
 			}
 		}
+	}
+
+	if (files_to_process.size() == 0) {
+		return usage();
 	}
 
 	bin2c(output_source_name, output_header_name, bytes_per_line, files_to_process);
