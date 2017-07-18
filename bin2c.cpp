@@ -70,7 +70,7 @@ void bin2c(const char* output_source_name, const char* output_header_name, int b
 		if (using_header) {
 			(*header) << "extern const char " << f.array_name << "[" << length + 1 << "];\n";
 		}
-		(*source) << "const unsigned char " << f.array_name << "[" << std::dec << length + 1 << "] = {\n\t";
+		(*source) << "unsigned char " << f.array_name << "[" << std::dec << length + 1 << "] = {\n\t";
 		int byte_count = 0;
 		(*source) << std::hex << std::setfill('0');
 		for (char c : contents) {
