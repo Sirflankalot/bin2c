@@ -47,8 +47,7 @@ std::string file_contents(const char* filename) {
 	return str;
 }
 
-void bin2c(const char* output_source_name, const char* output_header_name, int bytes,
-           std::vector<binary_file>& files) {
+void bin2c(const char* output_source_name, const char* output_header_name, int bytes, std::vector<binary_file>& files) {
 	std::unique_ptr<std::ostream> source;
 	std::unique_ptr<std::ostream> header;
 
@@ -69,10 +68,9 @@ void bin2c(const char* output_source_name, const char* output_header_name, int b
 		auto length = contents.length();
 
 		if (using_header) {
-			(*header) << "extern unsigned char " << f.array_name << "[" << length + 1 << "];\n";
+			(*header) << "extern const char " << f.array_name << "[" << length + 1 << "];\n";
 		}
-		(*source) << "unsigned char " << f.array_name << "[" << std::dec << length + 1
-		          << "] = {\n\t";
+		(*source) << "const unsigned char " << f.array_name << "[" << std::dec << length + 1 << "] = {\n\t";
 		int byte_count = 0;
 		(*source) << std::hex << std::setfill('0');
 		for (char c : contents) {
