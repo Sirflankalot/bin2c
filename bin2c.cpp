@@ -68,7 +68,7 @@ void bin2c(const char* output_source_name, const char* output_header_name, int b
 		auto length = contents.length();
 
 		if (using_header) {
-			(*header) << "extern const unsigned char " << f.array_name << "[" << length + 1 << "];\n";
+			(*header) << "extern unsigned char " << f.array_name << "[" << length + 1 << "];\n";
 		}
 		(*source) << "unsigned char " << f.array_name << "[" << std::dec << length + 1 << "] = {\n\t";
 		int byte_count = 0;
