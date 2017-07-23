@@ -39,7 +39,7 @@ std::string file_contents(const char* filename) {
 	}
 
 	f.seekg(0, std::ios::end);
-	str.reserve(f.tellg());
+	str.reserve(std::size_t(f.tellg()));
 	f.seekg(0, std::ios::beg);
 
 	str.assign((std::istreambuf_iterator<char>(f)), std::istreambuf_iterator<char>());
@@ -68,7 +68,7 @@ void bin2c(const char* output_source_name, const char* output_header_name, int b
 		auto length = contents.length();
 
 		if (using_header) {
-			(*header) << "extern const char " << f.array_name << "[" << length + 1 << "];\n";
+			(*header) << "extern const unsigned char " << f.array_name << "[" << length + 1 << "];\n";
 		}
 		(*source) << "unsigned char " << f.array_name << "[" << std::dec << length + 1 << "] = {\n\t";
 		int byte_count = 0;
@@ -93,7 +93,7 @@ int main(int argc, char** argv) {
 	std::vector<binary_file> files_to_process;
 
 	// Iterate through arguments
-	for (std::size_t i = 0; i < argc; ++i) {
+	for (int i = 0; i < argc; ++i) {
 		// Parse options
 		if (argv[i][0] == '-') {
 			if (argv[i][1] == '\0') {
